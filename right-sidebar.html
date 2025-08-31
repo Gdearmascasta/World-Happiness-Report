@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<!--
+	Helios by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Radar Chart - World Happiness Report</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	</head>
+	<body class="is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header">
+
+					<!-- Inner -->
+						<div class="inner">
+							<header>
+								<h1><a href="index.html" id="logo">World Happiness Report</a></h1>
+							</header>
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="index.html">Home</a></li>
+								<li><a href="left-sidebar.html">Line Chart</a></li>
+								<li><a href="right-sidebar.html">Radar Chart</a></li>
+								<li><a href="no-sidebar.html">slide Chart</a></li>
+							</ul>
+						</nav>
+
+				</div>
+
+			<!-- Main -->
+				<div class="wrapper style1">
+
+					<div class="container">
+						<article id="main">
+							<header>
+								<h2>Radar Chart</h2>
+								<p>
+									Visualización de tendencias de felicidad a través de gráficos de radar
+								</p>
+							</header>
+							<div id="radar-chart"></div>
+							<script>
+								// Sample data for radar chart
+								var data = [{
+									type: 'scatterpolar',
+									r: [39.4, 39.3, 39.2, 39.1, 39.0],
+									theta: ['2015', '2016', '2017', '2018', '2019'],
+									fill: 'toself',
+									name: 'Happiness Score'
+								}];
+
+								var layout = {
+									polar: {
+										radialaxis: {
+											visible: true,
+											range: [0, 10]
+										}
+									},
+									showlegend: false
+								};
+
+								Plotly.newPlot('radar-chart', data, layout);
+							</script>
+						</article>
+					</div>
+
+				</div>
+
+
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<!--
+	Helios by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>slide Chart - World Happiness Report</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	</head>
+	<body class="is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header">
+
+					<!-- Inner -->
+						<div class="inner">
+							<header>
+								<h1><a href="index.html" id="logo">World Happiness Report</a></h1>
+							</header>
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="index.html">Home</a></li>
+								<li><a href="left-sidebar.html">Line Chart</a></li>
+								<li><a href="right-sidebar.html">Radar Chart</a></li>
+								<li><a href="no-sidebar.html">slide Chart</a></li>
+							</ul>
+						</nav>
+
+				</div>
+
+			<!-- Main -->
+				<div class="wrapper style1">
+
+					<div class="container">
+						<article id="main" class="special">
+							<header>
+								<h2>slide Chart</h2>
+								<p>
+									Visualización de tendencias de felicidad a través de gráficos de barras animados
+								</p>
+							</header>
+							<div id="bar-chart"></div>
+							<script>
+								// Sample data for animated bar chart
+								var countries = ['Colombia', 'Finland', 'Israel', 'Zimbabwe', 'Afghanistan'];
+								var scores = [5.4, 7.8, 7.2, 3.1, 2.5];
+
+								var data = [{
+									type: 'bar',
+									x: countries,
+									y: Array(scores.length).fill(0), // Start with zero
+									name: 'Happiness Score',
+									marker: { color: 'rgba(55, 128, 191, 0.7)' }
+								}];
+
+								var layout = {
+									title: 'Happiness Scores by Country',
+									xaxis: { title: 'Country' },
+									yaxis: { title: 'Happiness Score', range: [0, 8] },
+									updatemenus: [{
+										type: 'buttons',
+										buttons: [{
+											label: 'Animate',
+											method: 'animate',
+											args: [null, {
+												mode: 'immediate',
+												frame: { duration: 500, redraw: false },
+												fromcurrent: true,
+												transition: { duration: 300 }
+											}]
+										}]
+									}]
+								};
+
+								var frames = [];
+								for (var i = 0; i <= 10; i++) {
+									var frameData = [{
+										type: 'bar',
+										x: countries,
+										y: scores.map(score => score * (i / 10)),
+										name: 'Happiness Score'
+									}];
+									frames.push({
+										data: frameData,
+										name: i.toString()
+									});
+								}
+
+								Plotly.newPlot('bar-chart', data, layout).then(function() {
+									Plotly.addFrames('bar-chart', frames);
+								});
+							</script>
+						</article>
+					</div>
+
+				</div>
+
+
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
