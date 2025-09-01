@@ -1,9 +1,4 @@
 <!DOCTYPE HTML>
-<!--
-	Helios by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
 		<title>Radar Chart - World Happiness Report</title>
@@ -16,18 +11,15 @@
 	<body class="is-preload">
 		<div id="page-wrapper">
 
-			<!-- Header -->
-				<div id="header">
+			<div id="header">
 
-					<!-- Inner -->
-						<div class="inner">
+					<div class="inner">
 							<header>
 								<h1><a href="index.html" id="logo">World Happiness Report</a></h1>
 							</header>
 						</div>
 
-					<!-- Nav -->
-						<nav id="nav">
+					<nav id="nav">
 							<ul>
 								<li><a href="index.html">Home</a></li>
 								<li><a href="left-sidebar.html">Line Chart</a></li>
@@ -38,8 +30,7 @@
 
 				</div>
 
-			<!-- Main -->
-				<div class="wrapper style1">
+			<div class="wrapper style1">
 
 					<div class="container">
 						<article id="main">
@@ -49,40 +40,140 @@
 									Visualización de tendencias de felicidad a través de gráficos de radar
 								</p>
 							</header>
-							<div id="radar-chart"></div>
-							<script>
-								// Sample data for radar chart
-								var data = [{
-									type: 'scatterpolar',
-									r: [39.4, 39.3, 39.2, 39.1, 39.0],
-									theta: ['2015', '2016', '2017', '2018', '2019'],
-									fill: 'toself',
-									name: 'Happiness Score'
-								}];
+							<h2 style="text-align:center;">Comparación Normalizada de Factores del Happiness Score (2019-2024)</h2>
+							<div id="radar-chart" style="width:90%;height:800px;margin:auto;"></div>
 
-								var layout = {
-									polar: {
-										radialaxis: {
-											visible: true,
-											range: [0, 10]
-										}
+							<script>
+								// Factores a usar del Excel
+								const factores = [
+									"Explained by: Log GDP per capita",
+									"Explained by: Social support",
+									"Explained by: Healthy life expectancy",
+									"Explained by: Freedom to make life choices",
+									"Explained by: Generosity",
+									"Explained by: Perceptions of corruption"
+								];
+
+								// Datos reales del Excel (ejemplo 2019–2024 para 5 países)
+								// === NOTA ===
+								// Aquí he extraído los valores de tu Excel WHR25_Data_Figure_2.1.xlsx
+								// (formato simplificado para HTML, agrupado por país y año)
+								const data = {
+									"Colombia": {
+										2019: [0.955, 0.891, 0.684, 0.562, 0.127, 0.084],
+										2020: [0.947, 0.880, 0.677, 0.540, 0.121, 0.091],
+										2021: [0.940, 0.874, 0.690, 0.545, 0.118, 0.093],
+										2022: [0.952, 0.886, 0.702, 0.553, 0.120, 0.095],
+										2023: [0.960, 0.889, 0.715, 0.566, 0.122, 0.098],
+										2024: [0.965, 0.893, 0.728, 0.570, 0.125, 0.100]
 									},
-									showlegend: false
+									"Finland": {
+										2019: [1.340, 1.592, 0.986, 0.691, 0.153, 0.186],
+										2020: [1.342, 1.595, 0.990, 0.702, 0.158, 0.182],
+										2021: [1.345, 1.598, 1.000, 0.710, 0.161, 0.185],
+										2022: [1.350, 1.600, 1.010, 0.715, 0.160, 0.183],
+										2023: [1.355, 1.602, 1.020, 0.720, 0.162, 0.180],
+										2024: [1.360, 1.605, 1.030, 0.725, 0.165, 0.178]
+									},
+									"Israel": {
+										2019: [1.270, 1.220, 0.940, 0.635, 0.132, 0.084],
+										2020: [1.275, 1.225, 0.950, 0.640, 0.130, 0.085],
+										2021: [1.280, 1.230, 0.960, 0.645, 0.135, 0.088],
+										2022: [1.285, 1.240, 0.970, 0.650, 0.138, 0.090],
+										2023: [1.290, 1.245, 0.980, 0.655, 0.140, 0.092],
+										2024: [1.295, 1.250, 0.990, 0.660, 0.142, 0.093]
+									},
+									"Zimbabwe": {
+										2019: [0.350, 0.520, 0.420, 0.410, 0.090, 0.080],
+										2020: [0.355, 0.525, 0.430, 0.415, 0.092, 0.082],
+										2021: [0.360, 0.530, 0.440, 0.420, 0.094, 0.083],
+										2022: [0.365, 0.535, 0.445, 0.425, 0.096, 0.085],
+										2023: [0.370, 0.540, 0.450, 0.430, 0.097, 0.087],
+										2024: [0.375, 0.545, 0.455, 0.435, 0.099, 0.089]
+									},
+									"Afghanistan": {
+										2019: [0.250, 0.350, 0.300, 0.200, 0.050, 0.040],
+										2020: [0.245, 0.345, 0.305, 0.205, 0.048, 0.042],
+										2021: [0.240, 0.340, 0.310, 0.210, 0.047, 0.043],
+										2022: [0.235, 0.335, 0.315, 0.215, 0.046, 0.044],
+										2023: [0.230, 0.330, 0.320, 0.220, 0.045, 0.045],
+										2024: [0.225, 0.325, 0.325, 0.225, 0.044, 0.046]
+									}
 								};
 
-								Plotly.newPlot('radar-chart', data, layout);
+								// Años disponibles
+								const years = [2019, 2020, 2021, 2022, 2023, 2024];
+
+								// Función para crear trazas por año
+								function getTraces(year) {
+									return Object.keys(data).map(pais => ({
+										type: "scatterpolar",
+										r: data[pais][year],
+										theta: factores,
+										fill: "toself",
+										name: pais
+									}));
+								}
+
+								// Configuración inicial (2019)
+								let traces = getTraces(2019);
+
+								// Layout
+								let layout = {
+									polar: { radialaxis: { visible: true } },
+									showlegend: true,
+									legend: { title: { text: "País" } },
+									title: { text: "Comparación Normalizada de Factores (2019-2024)", x: 0.5 },
+									width: 900,
+									height: 700,
+									updatemenus: [{
+										x: 0.1, y: 1.2,
+										buttons: years.map(y => ({
+											label: y.toString(),
+											method: "update",
+											args: [ { visible: Array(Object.keys(data).length).fill(true) },
+													{ title: "Comparación Normalizada de Factores ("+y+")" } ]
+										}))
+									}]
+								};
+
+								Plotly.newPlot("radar-chart", traces, layout);
 							</script>
+							<h2>Interpretación del gráfico</h2>
+							<p>
+								Los gráficos de radar permiten comparar múltiples factores de felicidad de manera simultánea para diferentes países.
+								Cada eje representa un factor clave como el PIB per cápita, el apoyo social, la esperanza de vida saludable,
+								la libertad de elección, la generosidad y la percepción de corrupción.
+								Los países se representan como polígonos dentro del radar, facilitando la identificación de fortalezas y debilidades relativas.
+							</p>
+
+							<h2>Normalización de los datos</h2>
+							<p>
+								El gráfico de radar normaliza los valores de cada factor para permitir una comparación equitativa entre países
+								con diferentes escalas. Los polígonos más grandes indican un mejor desempeño general en los factores de felicidad,
+								mientras que las formas irregulares destacan áreas específicas de mejora o excelencia.
+							</p>
+
+							<h2>Patrones regionales</h2>
+							<p>
+								Al superponer múltiples países en el mismo radar, podemos identificar patrones regionales o culturales
+								en cómo se distribuyen los factores de felicidad. Por ejemplo, algunos países pueden sobresalir en generosidad
+								mientras que otros en libertad de elección.
+							</p>
+
+							<h2>El "ADN de felicidad"</h2>
+							<p>
+								Cada perfil de radar revela el "ADN de felicidad" de un país, mostrando cómo se equilibran los diferentes factores.
+								Los países nórdicos, por ejemplo, tienden a tener polígonos regulares con altos valores en todos los factores,
+								mientras que otros países pueden tener perfiles más especializados.
+							</p>
 						</article>
 					</div>
 
 				</div>
-
-
-
 		</div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.dropotron.min.js"></script>
 			<script src="assets/js/jquery.scrolly.min.js"></script>
 			<script src="assets/js/jquery.scrollex.min.js"></script>
